@@ -1,34 +1,58 @@
-## Module 6 - Sécurité et bonnes pratiques (1 h 30) .[chapter]
+---
+transition: slide-left
+---
 
-## Objectifs du module
+# Module 6 - Sécurité et bonnes pratiques (1 h 30)
+
+---
+level: 2
+---
+
+# Objectifs du module
 
 - Réduire les risques de sécurité dans les images
 - Adopter des pratiques de build robustes
 - Gérer les secrets sans fuite
 - Standardiser le versioning des images
 
-## Choisir ses images
+---
+level: 2
+---
+
+# Choisir ses images
 
 - Préférer les images officielles et maintenues
 - Vérifier la date de mise à jour
 - Éviter `latest` en production
 - Scanner les vulnérabilités avant publication
 
-## Principe du moindre privilège
+---
+level: 2
+---
+
+# Principe du moindre privilège
 
 - Éviter l'utilisateur root dans le conteneur
 - Déclarer un utilisateur dédié
 - Limiter les capabilities Linux si besoin
 - Rendre le système de fichiers en lecture seule quand possible
 
-## Secrets et données sensibles
+---
+level: 2
+---
+
+# Secrets et données sensibles
 
 - Ne jamais stocker de secret dans le Dockerfile
 - Utiliser des variables d'environnement ou un gestionnaire de secrets
 - Exclure les fichiers sensibles via `.dockerignore`
 - Tourner régulièrement les credentials
 
-## Hygiène des dépôts
+---
+level: 2
+---
+
+# Hygiène des dépôts
 
 - Fichier `.dockerignore` minimal :
 
@@ -42,7 +66,11 @@ node_modules
 - Images taggées : `app:1.4.2`, `app:2026-03-06`
 - Politique de versions claire en équipe
 
-## TP 6 - Durcir une image
+---
+level: 2
+---
+
+# TP 6 - Durcir une image
 
 - Prendre un Dockerfile existant
 - Ajouter un utilisateur non root
@@ -54,7 +82,11 @@ docker build -t secure-app:1.0 .
 docker run --rm secure-app:1.0 id
 ```
 
-## Débrief et validation
+---
+level: 2
+---
+
+# Débrief et validation
 
 - Quels sont les 3 risques majeurs à corriger en priorité ?
 - Pourquoi l'utilisateur non root est-il critique ?

@@ -1,20 +1,36 @@
-## Module 5 - Docker Compose (2 h) .[chapter]
+---
+transition: slide-left
+---
 
-## Objectifs du module
+# Module 5 - Docker Compose (2 h)
+
+---
+level: 2
+---
+
+# Objectifs du module
 
 - Déclarer une application multi-conteneurs
 - Comprendre la structure de `docker-compose.yml`
 - Lancer/arrêter une stack complète
 - Gérer réseaux, volumes et variables d'environnement
 
-## Pourquoi Docker Compose ?
+---
+level: 2
+---
+
+# Pourquoi Docker Compose ?
 
 - Évite des commandes `docker run` longues et répétitives
 - Décrit l'infra locale en un seul fichier versionné
 - Idéal pour le développement et les environnements de test
 - Facilite le travail en équipe
 
-## Structure minimale compose
+---
+level: 2
+---
+
+# Structure minimale compose
 
 ```yaml
 services:
@@ -28,25 +44,37 @@ services:
       POSTGRES_PASSWORD: secret
 ```
 
-## Commandes Compose
+---
+level: 2
+---
+
+# Commandes Compose
 
 - `docker compose up -d` : lancer la stack
 - `docker compose ps` : état des services
 - `docker compose logs -f` : suivre les logs
 - `docker compose down` : arrêter et supprimer
 
-## Variables et fichiers `.env`
+---
+level: 2
+---
+
+# Variables et fichiers `.env`
 
 - Centraliser la configuration par environnement
 - Éviter de hardcoder mots de passe et URLs
 - Exemple :
 
-```env
+```sh
 POSTGRES_PASSWORD=secret
 APP_PORT=8080
 ```
 
-## TP 5 - Application Web + DB
+---
+level: 2
+---
+
+# TP 5 - Application Web + DB
 
 - Écrire un `docker-compose.yml` avec 2 services
 - Ajouter un volume de persistance pour la DB
@@ -60,7 +88,11 @@ docker compose logs -f
 docker compose down
 ```
 
-## Débrief et validation
+---
+level: 2
+---
+
+# Débrief et validation
 
 - Quels gains concrets de Compose pour une équipe ?
 - Quelle différence entre image et service ?

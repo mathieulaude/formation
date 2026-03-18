@@ -1,13 +1,25 @@
-## Module 7 - Docker en environnement de production (1 h 30) .[chapter]
+---
+transition: slide-left
+---
 
-## Objectifs du module
+# Module 7 - Docker en environnement de production (1 h 30)
+
+---
+level: 2
+---
+
+# Objectifs du module
 
 - Comprendre la publication d'images vers un registre
 - Organiser déploiement, logs et sauvegardes
 - Introduire les bases CI/CD avec Docker
 - Identifier les points de vigilance en production
 
-## Registres d'images
+---
+level: 2
+---
+
+# Registres d'images
 
 - Public : Docker Hub, GHCR
 - Privé : registre interne entreprise
@@ -19,42 +31,66 @@ docker tag app:1.0 registry.example.com/app:1.0
 docker push registry.example.com/app:1.0
 ```
 
-## Stratégie de déploiement
+---
+level: 2
+---
+
+# Stratégie de déploiement
 
 - Versionner chaque image de façon immutable
 - Éviter d'écraser un tag existant
 - Utiliser des variables d'environnement par environnement
 - Prévoir un rollback rapide vers version précédente
 
-## Logs, supervision, santé
+---
+level: 2
+---
+
+# Logs, supervision, santé
 
 - Collecter stdout/stderr des conteneurs
 - Centraliser les logs (ELK, Loki, etc.)
 - Ajouter des `HEALTHCHECK` sur les services critiques
 - Surveiller CPU, mémoire et redémarrages
 
-## Sauvegarde et restauration
+---
+level: 2
+---
+
+# Sauvegarde et restauration
 
 - Sauvegarder les volumes de données régulièrement
 - Tester la restauration, pas seulement la sauvegarde
 - Documenter la procédure d'urgence
 - Définir un objectif RPO/RTO simple
 
-## Notions CI/CD avec Docker
+---
+level: 2
+---
+
+# Notions CI/CD avec Docker
 
 - Build image à chaque merge principal
 - Scanner les vulnérabilités avant push
 - Publier vers registre de confiance
 - Déployer automatiquement sur environnement cible
 
-## TP 7 - Push et déploiement simulé
+---
+level: 2
+---
+
+# TP 7 - Push et déploiement simulé
 
 - Tagger une image locale
 - Pousser vers un registre de test (ou simulation locale)
 - Lancer la nouvelle version sur une machine cible de TP
 - Vérifier la disponibilité applicative
 
-## Débrief et validation
+---
+level: 2
+---
+
+# Débrief et validation
 
 - Pourquoi un tag immutable simplifie le rollback ?
 - Quels indicateurs de santé suivre en premier ?

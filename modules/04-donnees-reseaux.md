@@ -1,27 +1,47 @@
-## Module 4 - Données et réseaux Docker (2 h) .[chapter]
+---
+transition: slide-left
+---
 
-## Objectifs du module
+# Module 4 - Données et réseaux Docker (2 h)
+
+---
+level: 2
+---
+
+# Objectifs du module
 
 - Comprendre la persistance des données
 - Utiliser volumes et bind mounts
 - Créer un réseau Docker applicatif
 - Connecter plusieurs conteneurs entre eux
 
-## Persistance des données
+---
+level: 2
+---
+
+# Persistance des données
 
 - Un conteneur est éphémère par nature
 - Les données internes disparaissent à la suppression
 - Les volumes permettent de conserver l'état
 - Le stockage doit être pensé dès la conception
 
-## Volumes vs Bind mounts
+---
+level: 2
+---
+
+# Volumes vs Bind mounts
 
 - Volume : géré par Docker, portable, recommandé en prod
 - Bind mount : dossier hôte monté dans le conteneur
 - Volume : `-v db_data:/var/lib/postgresql/data`
 - Bind mount : `-v $(pwd)/src:/app/src`
 
-## Réseaux Docker
+---
+level: 2
+---
+
+# Réseaux Docker
 
 - Réseau par défaut : `bridge`
 - Communication entre conteneurs via nom de service
@@ -32,7 +52,11 @@
 docker network create app-net
 ```
 
-## Exemple app + base
+---
+level: 2
+---
+
+# Exemple app + base
 
 ```bash
 docker run -d --name db --network app-net -e POSTGRES_PASSWORD=secret postgres:16
@@ -41,7 +65,11 @@ docker run -d --name app --network app-net -p 8080:8080 my-app:1.0
 
 - L'application peut joindre la base avec l'hôte `db`
 
-## TP 4 - Base de données persistante
+---
+level: 2
+---
+
+# TP 4 - Base de données persistante
 
 - Créer un volume nommé
 - Lancer PostgreSQL avec ce volume
@@ -54,7 +82,11 @@ docker run -d --name postgres-db -e POSTGRES_PASSWORD=secret -v pgdata:/var/lib/
 docker volume ls
 ```
 
-## Débrief et validation
+---
+level: 2
+---
+
+# Débrief et validation
 
 - Quand choisir bind mount plutôt qu'un volume ?
 - Pourquoi séparer les réseaux par application ?
