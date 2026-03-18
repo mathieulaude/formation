@@ -286,6 +286,7 @@ level: 2
 - Proposer une amélioration (base image, cache, nettoyage)
 
 ```bash
+git clone https://github.com/mathieulaude/formation-docker/
 cd src/tp3
 docker build -t tp-app:1.0 .
 docker images | grep tp-app

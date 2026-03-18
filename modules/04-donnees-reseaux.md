@@ -1,8 +1,10 @@
 ---
 transition: slide-left
+layout: section
+title: Données et réseaux Docker
 ---
 
-# Module 4 - Données et réseaux Docker (2 h)
+# Module 4 - Données et réseaux Docker
 
 ---
 level: 2
@@ -21,9 +23,9 @@ level: 2
 
 # Persistance des données
 
-- Un conteneur est éphémère par nature
+- Un conteneur est **éphémère** par nature
 - Les données internes disparaissent à la suppression
-- Les volumes permettent de conserver l'état
+- Les **volumes** permettent de conserver l'état
 - Le stockage doit être pensé dès la conception
 
 ---
@@ -51,6 +53,21 @@ level: 2
 ```bash
 docker network create app-net
 ```
+
+---
+level: 2
+---
+
+# Types de réseaux Docker
+
+| Type | Cas d'usage | Remarques |
+|---|---|---|
+| `bridge` | Apps multi-conteneurs sur un seul hôte | Non distribué multi-hôtes |
+| `host` | Performance réseau maximale, ports natifs | Moins d'isolation, conflits de ports |
+| `none` | Isolation complète sans réseau | Aucun accès externe/interne |
+| `overlay` | Services répartis sur plusieurs nœuds | Nécessite Swarm, plus complexe |
+| `macvlan` | IP dédiée sur le LAN | Configuration réseau avancée |
+| `ipvlan` | Forte densité de conteneurs | Dépend des contraintes infra |
 
 ---
 level: 2
