@@ -1,8 +1,10 @@
 ---
 transition: slide-left
+title: Docker Compose
+layout: section
 ---
 
-# Module 5 - Docker Compose (2 h)
+# Module 5 - Docker Compose
 
 ---
 level: 2

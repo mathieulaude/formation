@@ -1,5 +1,6 @@
 ---
 theme: seriph
+download: true
 # some information about your slides (markdown enabled)
 title: Formation Docker
 level: 2

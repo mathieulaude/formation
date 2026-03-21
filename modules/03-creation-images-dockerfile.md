@@ -240,14 +240,178 @@ flowchart LR
 
 ---
 level: 2
+layout: two-cols-header
+layoutClass: gap-4
+---
+
+# RUN multi-ligne
+
+Un `RUN` multi-ligne améliore la lisibilité et la maintenance tout en produisant une seule couche.
+
+::left::
+
+**Trier les listes alphabétiquement**
+- Évite les duplications accidentelles de paquets
+- Facilite la revue de code et la lecture des diffs
+- Réduit les conflits lors des merges
+
+**Avoir une couche `RUN` cohérente**
+- Évite un cache Docker obsolète sur `apt-get update`
+- Réduit les erreurs de type “package introuvable” lors d'un rebuild
+- Suppression du cache pour économiser de l'espace disque
+
+::right::
+
+**Exemple `apt install`**
+```dockerfile
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+  ca-certificates \
+  curl \
+  git \
+  vim \
+  && rm -rf /var/lib/apt/lists/*
+```
+
+---
+level: 2
+layout: two-cols-header
+layoutClass: gap-4
+---
+
+# Multi-stage build
+
+Technique pour réduire la taille finale en séparant la phase de **build** de la phase de **runtime**.
+
+::left::
+
+**Sans multi-stage** (image de 200+ MB)
+```dockerfile
+FROM node:25
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+::right::
+
+**Avec multi-stage** (image de 50 MB)
+```dockerfile
+# Stage 1: Build
+FROM node:25 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Runtime
+FROM node:25-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+RUN npm ci --omit=dev
+CMD ["node", "dist/server.js"]
+```
+
+---
+level: 2
+layout: two-cols-header
+layoutClass: gap-4
+---
+
+# Avantages du multi-stage
+
+::left::
+<br><br>
+
+- Réduit la taille de **60-80%** (outils de build, source code écartés)
+- Isole les dépendances de build des dépendances runtime
+- Améliore la sécurité en réduisant la surface d'attaque  (moins de fichiers inutiles)
+- Pattern utilisé dans les projets professionnels
+
+
+::right:: 
+
+<div style="margin-top: 40px;">
+
+```mermaid {scale: 0.8}
+flowchart LR
+
+  subgraph MULTI["Multi-stage"]
+    B["Builder<br/>~200 MB<br/>(jetée)"]
+    F["Finale<br/>~50 MB<br/>- dist seulement<br/>- node_modules prod"]
+    B --> F
+    B:::discard
+    F:::small
+  end
+
+  classDef big fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+  classDef small fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#000
+  classDef discard fill:#f5f5f5,stroke:#999,stroke-width:2px,color:#666
+```
+
+</div>
+
+---
+level: 2
+layout: two-cols-header
+layoutClass: gap-4
+---
+
+# Concept `FROM scratch`
+
+`scratch` est une image vide (0 couche de base) : on part de zéro.
+
+::left::
+
+**Quand l'utiliser ?**
+- Image finale ultra-minimale
+- Binaire statique (Go, Rust, C)
+- Avec multi-stage pour copier seulement l'exécutable
+
+**Points d'attention**
+- Pas de shell (`sh`), pas de `apt`, pas d'outils système
+- Ajouter explicitement les certificats CA si besoin HTTPS
+
+::right::
+
+**Exemple minimal**
+```dockerfile
+# Stage build
+FROM golang:1.24-alpine AS builder
+WORKDIR /src
+COPY . .
+RUN CGO_ENABLED=0 go build -o app .
+
+# Stage runtime minimal
+FROM scratch
+COPY --from=builder /src/app /app
+ENTRYPOINT ["/app"]
+```
+
+---
+level: 2
 ---
 
 # Bonnes pratiques
 
 - Utiliser des images officielles et légères (`alpine` quand possible)
+  - Réactivité sur les correctifs de vulnérabilités
+  - Accélère le téléchargement des images
 - Éviter d'exécuter en root
+  - Limite l'impact d'une compromission en appliquant le principe du moindre privilège.
 - Ajouter un fichier `.dockerignore`
+  - Exclut les fichiers inutiles du contexte de build et améliore les performances.
 - Tagger les images avec des versions explicites
+  - Garantit des déploiements reproductibles et simplifie les retours arrière.
+- Appliquer le **multi-stage build** pour les applications compilées/bundlées
+  - Conserve uniquement les artefacts nécessaires dans l'image finale pour la rendre plus légère.
+  - Réduit la surface d'attaque.
 
 ---
 level: 2
@@ -287,7 +451,7 @@ level: 2
 
 ```bash
 git clone https://github.com/mathieulaude/formation-docker/
-cd src/tp3
+cd formation-docker/src/tp3
 docker build -t tp-app:1.0 .
 docker images | grep tp-app
 docker run --rm -p 3000:3000 tp-app:1.0
@@ -303,3 +467,11 @@ transition: slide-right
 - À quoi sert `FROM` ?
 - Pourquoi l'ordre `COPY` / `RUN` est important ?
 - Quelle bonne pratique appliquer en premier sur vos projets ?
+
+<!--
+Réponses attendues
+
+- `FROM` définit l'image de base (point de départ de la construction).
+- L'ordre `COPY` / `RUN` impacte directement le cache Docker : copier d'abord les fichiers de dépendances permet de réutiliser les couches et d'accélérer les rebuilds.
+- Bonne pratique prioritaire : ajouter un `.dockerignore` et structurer le Dockerfile pour le cache (puis multi-stage selon le type d'application).
+-->
