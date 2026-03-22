@@ -1,8 +1,10 @@
 ---
 transition: slide-left
+title: Docker en environnement de production
+layout: section
 ---
 
-# Module 7 - Docker en environnement de production (1 h 30)
+# Module 7 - Docker en environnement de production
 
 ---
 level: 2
@@ -88,6 +90,7 @@ level: 2
 
 ---
 level: 2
+transition: slide-right
 ---
 
 # Débrief et validation

@@ -1,8 +1,10 @@
 ---
 transition: slide-left
+title: Mini-projet de synthèse
+layout: section
 ---
 
-# Module 8 - Mini-projet de synthèse (2 h)
+# Module 8 - Mini-projet de synthèse
 
 ---
 level: 2

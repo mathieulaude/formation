@@ -32,7 +32,10 @@ level: 2
 level: 2
 ---
 
-# Structure minimale compose
+# Structure minimale
+Un fichier pour les gouverner tous
+
+<div class="yaml-large">
 
 ```yaml
 services:
@@ -45,6 +48,15 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
 ```
+
+</div>
+
+<style>
+.yaml-large pre.shiki code {
+  font-size: 1.15rem !important;
+  line-height: 1.6 !important;
+}
+</style>
 
 ---
 level: 2
@@ -92,6 +104,7 @@ docker compose down
 
 ---
 level: 2
+transition: slide-right
 ---
 
 # Débrief et validation

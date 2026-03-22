@@ -1,8 +1,10 @@
 ---
 transition: slide-left
+title: Sécurité et bonnes pratiques
+layout: section
 ---
 
-# Module 6 - Sécurité et bonnes pratiques (1 h 30)
+# Module 6 - Sécurité et bonnes pratiques
 
 ---
 level: 2
@@ -84,6 +86,7 @@ docker run --rm secure-app:1.0 id
 
 ---
 level: 2
+transition: slide-right
 ---
 
 # Débrief et validation

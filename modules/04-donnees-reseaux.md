@@ -265,6 +265,7 @@ curl http://localhost:3000/messages
 
 ---
 level: 2
+transition: slide-right
 ---
 
 # Débrief et validation
