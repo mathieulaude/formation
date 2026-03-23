@@ -1,4 +1,4 @@
-node_modules/*
+**/node_modules/*
 .DS_Store
 dist
 *.local
@@ -11,3 +11,5 @@ slides-examples.md
 .pip_tmp
 .vscode
 .idea
+.envrc
+.env

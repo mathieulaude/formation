@@ -22,11 +22,13 @@ app.get('/health', async (req, res) => {
 });
 
 app.get('/data', async (req, res) => {
+    console.log('Fetching data from databae');
     const result = await pool.query('SELECT * FROM app_data');
     res.json(result.rows);
 });
 
 app.post('/data', express.json(), async (req, res) => {
+    console.log('Received data:', req.body);
     const { content } = req.body;
     const result = await pool.query(
         'INSERT INTO app_data (content) VALUES ($1) RETURNING *',
@@ -37,4 +39,11 @@ app.post('/data', express.json(), async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+// Add graceful shutdown handling
+process.on('SIGTERM', async () => {
+    console.log('Shutting down server...');
+    await pool.end();
+    process.exit(0);
 });
