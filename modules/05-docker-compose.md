@@ -94,7 +94,7 @@ level: 2
 - Écrire un `docker-compose.yml` avec les 2 services du TP4
 - Ajouter un volume de persistance pour la DB
 - Lancer la stack et vérifier l'accès web
-- Arrêter, relancer, vérifier que les données restent
+- Vérifier la persistance de données
 
 ```bash
 docker compose up -d
@@ -112,4 +112,5 @@ transition: slide-right
 
 - Quels gains concrets de Compose pour une équipe ?
 - Quelle différence entre image et service ?
+- Comment récupérer les données du TP4 ?
 - Comment supprimer les données ?

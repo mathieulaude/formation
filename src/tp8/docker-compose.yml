@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:8000"
+    environment:
+      - DB_HOST=database_service
+      - DB_PORT=5432
+      - DB_NAME=appdb
+      - DB_USER=admin
+      - DB_PASSWORD=passwerd123
+    networks:
+      - backend
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: appdb
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

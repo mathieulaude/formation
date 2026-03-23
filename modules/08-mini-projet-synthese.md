@@ -12,89 +12,48 @@ level: 2
 
 # Objectif du module
 
-- Mobiliser toutes les compétences des 7 modules précédents
+- Mobiliser toutes les compétences des modules précédents
+- Identifier et corriger les dysfonctionnements courants
+- Appliquer les bonnes pratiques de sécurité et performance
+- Maîtriser le diagnostic et le troubleshooting
 - Produire un livrable déployable et documenté
-- Travailler en mode équipe avec revues rapides
 
 ---
 level: 2
 ---
 
-# Scénario projet
+# TP 8
 
-- Contexte : petite application web + base de données
-- Attendus : conteneurisation complète et exécution locale
-- Contraintes : bonnes pratiques sécurité + persistance
-- Travail en binôme recommandé
-
----
-level: 2
----
-
-# Livrables obligatoires
-
-- `Dockerfile` propre et commenté
-- `docker-compose.yml` fonctionnel
-- Fichier `.dockerignore`
-- Guide `README.md` de build, run, stop
-
----
-level: 2
----
-
-# Critères d'évaluation
-
-- Application démarre sans erreur
-- Services communiquent correctement
-- Données persistantes après redémarrage
-- Choix techniques justifiés oralement
-
----
-level: 2
----
-
-# Plan de travail conseillé
-
-- 30 min : conception architecture et fichiers
-- 50 min : implémentation et tests fonctionnels
-- 20 min : durcissement et optimisation
-- 20 min : documentation et démo
-
----
-level: 2
----
-
-# TP 8 - Implémentation guidée
-
-- Étape 1 : Dockerfile applicatif
-- Étape 2 : Compose avec service web + DB + volume
-- Étape 3 : tests de démarrage et connectivité
-- Étape 4 : validation sécurité de base
+Cloner ou copier les fichiers depuis `src/tp8/` et tenter le démarrage :
 
 ```bash
-docker compose up -d
-docker compose ps
-docker compose logs --tail=50
-docker compose down
+cd src/tp8
+docker compose up
 ```
+<br>
 
----
-level: 2
----
+### Bugs ou améliorations à détecter
 
-# Restitution finale
+**Dockerfile :** taille d'image, RUN multi-ligne, least privileges, .dockerignore, health check
 
-- Démo de 5 minutes par groupe
-- Questions/réponses sur les choix techniques
-- Feedback immédiat formateur + pairs
+**Données/Réseau :** volume, exposition réseau, ordre de démarrage, variables d'environnement
+
+**Compose :** dépendances, ports exposés, réseau
+
+**Sécurité :** exécution en root, secrets, validation de la configuration
+
+**Production :** restart policy, graceful shutdown, logging
+
+
 
 ---
 level: 2
 transition: slide-right
 ---
 
-# Clôture de formation
+# Débrief et validation
 
-- Récap des commandes essentielles
-- Check-list de démarrage projet Docker
-- Ressources pour continuer (docs officielles, labs)
+- Quels bugs vous ont pris le plus de temps ?
+- Comment aviez-vous débuggé (logs ? docker exec ?) ?
+- Quels sont les 3 pièges à éviter en production ?
+
