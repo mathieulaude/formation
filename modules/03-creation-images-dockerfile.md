@@ -54,7 +54,7 @@ level: 2
 
 # Construire et lancer une image
 
-- Build : <code>docker build <span v-mark.green="2">-t demo-app:1.0</span><span v-mark.blue="1"> src/ </span></code>
+- Build : <code>docker build <span v-mark.green="2">-t demo-app:1.0</span><span v-mark.blue="1"> . </span></code>
 - Lancer : <code>docker run -d --name demo-app -p 3000:3000 <span v-mark.circle.green="3">demo-app:1.0</span></code>
 
 <div style="height: 320px; display: flex; align-items: center; justify-content: center;">
@@ -160,7 +160,7 @@ layout: two-cols-header
 layoutClass: gap-4
 ---
 
-# Architecture détaillée d'une image
+# Architecture détaillée d'un conteneur
 
 Au démarrage d'un conteneur, ajoute une couche en écriture.<br>
 Cette couche **Thin R/W** capte les changements runtime sans modifier l'image d'origine.

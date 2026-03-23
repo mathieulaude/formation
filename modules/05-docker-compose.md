@@ -80,6 +80,7 @@ level: 2
 - Exemple :
 
 ```sh
+$ cat .env
 POSTGRES_PASSWORD=secret
 APP_PORT=8080
 ```
@@ -90,7 +91,7 @@ level: 2
 
 # TP 5 - Application Web + DB
 
-- Écrire un `docker-compose.yml` avec 2 services
+- Écrire un `docker-compose.yml` avec les 2 services du TP4
 - Ajouter un volume de persistance pour la DB
 - Lancer la stack et vérifier l'accès web
 - Arrêter, relancer, vérifier que les données restent
@@ -111,4 +112,4 @@ transition: slide-right
 
 - Quels gains concrets de Compose pour une équipe ?
 - Quelle différence entre image et service ?
-- Quand utiliser `down -v` et quand l'éviter ?
+- Comment supprimer les données ?

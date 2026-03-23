@@ -20,12 +20,15 @@ level: 2
 level: 2
 ---
 
-# Pourquoi Docker ?
+# L'analogie du conteneur maritime
 
-- "Ça marche sur ma machine" est un problème classique
-- Docker encapsule l'application + ses dépendances
-- Même environnement en local, en test et en production
-- Démarrage rapide et isolation des services
+<div class="flex justify-center">
+  <div class="grid grid-cols-3 gap-4">
+    <div v-click><img src="../img/conteneur1.png" class="h-48 object-cover rounded" /></div>
+    <div v-click><img src="../img/conteneur2.png" class="h-48 object-cover rounded" /></div>
+    <div v-click><img src="../img/conteneur3.png" class="h-48 object-cover rounded" /></div>
+  </div>
+</div>
 
 ---
 level: 2
@@ -33,10 +36,12 @@ level: 2
 
 # L'analogie du conteneur maritime
 
-- Avant : chaque marchandise transportée différemment (fragile, vrac, liquide…)
-- Après : tout rentre dans un **conteneur standardisé**, quel que soit le contenu
-- Docker applique la même idée au logiciel : **Build, Ship, Run**
-- Un conteneur = un objet unique, versionné, portable, autosuffisant
+- **Standardisation** : tous les conteneurs ont la même taille (20 ou 40 pieds) → toute application rentre dans la même boîte Docker
+- **Portabilité** : un conteneur passe du cargo au train au camion sans être ouvert → une image Docker s'exécute pareil sur laptop / CI/CD / prod
+- **Isolation** : le contenu d'un conteneur ne pollue pas les autres → les conteneurs partagent l'OS mais ont leurs librairies
+- **Densité** : 100+ conteneurs sur un bateau → 100+ conteneurs sur un serveur, bien utilisées les ressources
+- **Reproductibilité** : même contenu, même trajet, même résultat → même image, même runtime, même comportement partout
+
 
 ---
 level: 2
@@ -51,7 +56,10 @@ level: 2
 | **Mise à jour** | En place, avec précaution | On détruit et recrée |
 | **Scaling** | Vertical (+ de CPU/RAM) | Horizontal (+ d'instances) |
 
-- Les conteneurs favorisent l'approche **cattle** : jetable, reproductible, scalable
+
+<div class="bg-blue-100 border-l-4 border-blue-500 p-4 rounded">
+  <strong>💡 Note :</strong> Les conteneurs favorisent l'approche <strong>cattle</strong> : jetable, reproductible, scalable
+</div>
 
 ---
 level: 2
@@ -297,36 +305,16 @@ flowchart TD
 level: 2
 ---
 
-# Avantages pour les développeurs
+# Avantages de Docker
 
-- Environnement d'exécution **portable** : même objet en dev, test, prod
-- Bibliothèques et design **standardisés** (images officielles, Dockerfile)
-- Facilité pour lancer une app **isolée** localement : tests rapides
-- Partage simplifié via un **registre d'images**
-- Philosophie **Build / Ship / Run**
+- **Pour le développement** : environnement portable, exécution locale isolée, partage simplifié via registre d'images
+- **Pour les opérations** : cohérence inter-environnements, déploiements plus rapides, sécurité et scalabilité améliorées
+- **Pour l'architecture** : microservices facilités, meilleure densification des ressources, réduction des coûts d'infrastructure
 
----
-level: 2
----
-
-# Avantages pour les opérateurs
-
-- **Cohérence** garantie entre les environnements
-- Cycle de vie applicatif amélioré : **déploiements plus rapides**
-- Sécurité renforcée (isolation, images signées, scanning)
-- **Stateless** par défaut, avec possibilité de persistance
-- Scalabilité facilitée, surtout avec un orchestrateur (Kubernetes)
-
----
-level: 2
----
-
-# Avantages pour les architectes
-
-- Architecture **microservices** facilitée : 1 conteneur = 1 responsabilité
-- **Densification** du système : plus d'apps sur moins de machines
-- Réduction du **coût d'infrastructure**
-- Flexibilité accrue avec un orchestrateur (placement, scaling, résilience)
+<br>
+<div class="bg-blue-100 border-l-4 border-blue-500 p-4 rounded">
+  <strong>💡 Build / Ship / Run</strong> : un même artefact du poste dev jusqu'à la production.
+</div>
 
 ---
 level: 2
@@ -344,39 +332,20 @@ level: 2
 level: 2
 ---
 
-# Qu'est-ce qu'un conteneur Linux ?
+# Qu'est-ce qu'un conteneur ?
 
-```mermaid {scale: 0.5}
-flowchart LR
-	subgraph HW["Matériel"]
-		direction TD
-		DRIVERS["Drivers"]
-	end
-	subgraph KERNEL["Noyau Linux"]
-		direction TD
-		NS["Namespaces\n(isolation PID, réseau, mount, IPC, user)"]
-		CG["cgroups\n(limites CPU, mémoire, I/O)"]
-		SEC["SELinux / AppArmor\n(politiques de sécurité)"]
-	end
-	subgraph CONTAINERS["Conteneurs"]
-		CT1["Conteneur 1"]
-		CT2["Conteneur 2"]
-		CT3["Conteneur 3"]
-	end
-	MGMT["Interface de gestion\n(Docker Engine / containerd)"]
+- **Un fichier de description/génération** : le `Dockerfile` permet de construire l'image de façon reproductible.
+- **Un objet stockable et versionné** : l'image peut être taggée (`app:1.0`) et publiée dans un registre.
+- **Une version précise de l'application** : code, dépendances et configuration runtime sont figés dans l'image.
+- **Un processus isolé et autosuffisant** : le conteneur embarque ses bibliothèques et s'exécute dans un environnement dédié.
+- **Une identité réseau** : il peut exposer des ports et communiquer via un réseau Docker (nom DNS interne, IP, service).
+- **Un cycle de vie maîtrisé** : on crée, exécute, arrête et recrée rapidement le conteneur sans dérive de configuration.
 
-	CONTAINERS --> MGMT --> KERNEL
-	
-	NS -.-> CONTAINERS
-	CG -.-> CONTAINERS
-	SEC -.-> CONTAINERS
-	KERNEL --> HW
+<div class="bg-blue-100 border-l-4 border-blue-500 p-4 rounded mt-4">
+	<strong>💡 En résumé :</strong> une image est le modèle, le conteneur est son instance en cours d'exécution.
+</div>
 
-	style KERNEL fill:#27ae60,color:#fff
-	style NS fill:#2ecc71,color:#fff
-	style CG fill:#2ecc71,color:#fff
-	style SEC fill:#2ecc71,color:#fff
-```
+
 
 ---
 level: 2
@@ -422,9 +391,41 @@ level: 2
 # Concepts clés
 
 - Image : modèle en lecture seule
-- Conteneur : instance en exécution d'une image
-- Registre : dépôt d'images (public ou privé)
 - Tag : version d'une image (ex : `nginx:1.27`)
+- Conteneur : instance en exécution d'une image
+- <v-click at="1">Registre : dépôt d'images (public ou privé)</v-click>
+
+```mermaid
+flowchart LR
+	DEV["Développeur"] -->|docker build| IMG["Image versionnée\nnginx:1.27"]
+	IMG -->|docker run| CTR["Conteneur\ninstance en exécution"]
+
+	classDef model fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+	classDef runtime fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000
+	classDef registry fill:#fff9c4,stroke:#f57f17,stroke-width:2px,color:#000
+
+	class IMG model
+	class CTR runtime
+```
+
+<div v-click at="1">
+
+```mermaid
+flowchart LR
+	IMG["Image versionnée\nnginx:1.27"] -->|docker push| REG["Registre\nDocker Hub / privé"]
+	REG -->|docker pull| HOST["Hôte Docker"]
+	HOST -->|docker run| CTR["Conteneur\ninstance en exécution"]
+
+	classDef model fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+	classDef runtime fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000
+	classDef registry fill:#fff9c4,stroke:#f57f17,stroke-width:2px,color:#000
+
+	class IMG model
+	class CTR runtime
+	class REG registry
+```
+
+</div>
 
 ---
 level: 2

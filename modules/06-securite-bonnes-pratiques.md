@@ -48,7 +48,7 @@ level: 2
 - Ne jamais stocker de secret dans le Dockerfile
 - Utiliser des variables d'environnement ou un gestionnaire de secrets
 - Exclure les fichiers sensibles via `.dockerignore`
-- Tourner régulièrement les credentials
+- Changer régulièrement les identifiants
 
 ---
 level: 2

@@ -137,7 +137,7 @@ level: 2
 
 <div v-click>
 
-```bash {none|1|1-2|1-3|1-4|1-5}{at: '2'}
+```bash {none|1|1-2|1-3|1-4|1-5|1-6}{at: '2'}
 docker pull nginx:stable
 docker run -d --name web-nginx -p 8080:80 nginx:stable
 docker ps
